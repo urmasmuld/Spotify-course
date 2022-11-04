@@ -188,7 +188,9 @@
                                 text += ', ';
                               }
                             }
-                            text += ' <span class="link" onClick="deleteTrack(\''+ obj.items[i].track.id +'\')">[ Delete ]</span></div>';
+                            var min = Math.floor((obj.items[i].track.duration_ms/1000/60) << 0);
+                            var sec = Math.floor((obj.items[i].track.duration_ms/1000) % 60);
+                            text += ' (' + min + ':' + padTo2Digits(sec) + ') <span class="link" onClick="deleteTrack(\''+ obj.items[i].track.id +'\')">[ Delete ]</span></div>';
                         }
                         document.getElementById("playlist").innerHTML += text;
                         $('#playlist').show();
@@ -196,7 +198,10 @@
                   });
         }
 
-
+        function padTo2Digits(num) {
+          return num.toString().padStart(2, '0');
+        }
+        
       (function() {
         /**
          * Obtains parameters from the hash of the URL
